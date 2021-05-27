@@ -1,6 +1,9 @@
 let board = document.querySelector(".board");
 let tool = board.getContext("2d");
+let topIcons = document.querySelector(".top_icons");
 let isMouseDown = false;
+let isVisible = true;
+
 
 board.height = window.innerHeight;
 board.width = window.innerWidth;
@@ -29,6 +32,13 @@ board.addEventListener("mouseup",function(e){
     isMouseDown = false;
 })
 
-function myFunction(x) {
-    x.classList.toggle("change");
+function myFunction(clicked) {
+    clicked.classList.toggle("change");
+    if(isVisible){
+        topIcons.style.display = "none";
+        isVisible = false;
+    }else{
+        topIcons.style.display = "flex";
+        isVisible = true;
+    }
 }

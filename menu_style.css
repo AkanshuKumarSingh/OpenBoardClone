@@ -1,7 +1,5 @@
 .menu_icon_container {
-    position: fixed;
-    top: 2vh;
-    left: 2vw;
+    
     display: inline-block;
     cursor: pointer;
 }
