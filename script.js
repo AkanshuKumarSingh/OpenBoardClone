@@ -1,6 +1,8 @@
 let board = document.querySelector(".board");
 let tool = board.getContext("2d");
 let topIcons = document.querySelector(".top_icons");
+let boardObj = document.querySelector(".board").getBoundingClientRect();
+
 let isMouseDown = false;
 let isVisible = true;
 
@@ -21,7 +23,7 @@ board.addEventListener("mousedown",function(e){
 
 board.addEventListener("mousemove",function(e){
     if(isMouseDown){
-        tool.lineTo(e.clientX,e.clientY);
+        tool.lineTo(e.clientX,getY(e.clientY));
         tool.stroke();
     }
 })
@@ -41,4 +43,9 @@ function myFunction(clicked) {
         topIcons.style.display = "flex";
         isVisible = true;
     }
+}
+
+console.log(topObj);
+function getY(y) {
+    return y-boardObj.top;
 }

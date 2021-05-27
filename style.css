@@ -7,7 +7,7 @@ body {
     display: flex;
     width: 80vw;
     height: 10vh;
-    margin: 3%;
+    margin:1.5% 1.5% 0.3% 1.5%;
     justify-content: flex-start;
 }
 
@@ -20,9 +20,10 @@ body {
     border: 2px solid;
     border-radius: 10px;
     width: 70vw;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.icon{
+.top_icons>*{
     display: flex;
     height: 100%;
     width: 15%;
