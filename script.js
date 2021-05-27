@@ -7,6 +7,9 @@ board.width = window.innerWidth;
 tool.strokeStyle = "red";
 tool.lineWidth = 10;
 
+console.log(window.innerWidth + " " + window.innerHeight);
+console.log(document.body.clientWidth + " " + document.body.clientHeight);
+
 board.addEventListener("mousedown",function(e){
     isMouseDown = true;
     tool.beginPath();
@@ -22,6 +25,10 @@ board.addEventListener("mousemove",function(e){
 
 board.addEventListener("mouseup",function(e){
     tool.lineTo(e.clientX,e.clientY);
-    tool.stroke;
+    tool.stroke();
     isMouseDown = false;
 })
+
+function myFunction(x) {
+    x.classList.toggle("change");
+}
