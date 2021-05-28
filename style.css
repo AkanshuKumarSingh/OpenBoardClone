@@ -1,3 +1,6 @@
+*{
+    box-sizing: border-box;
+}
 body {
     margin: 0px;
     overflow: hidden;
@@ -33,4 +36,13 @@ body {
 
 .icon>*{
     font-size: 200%;
+}
+
+.active-btn{
+    box-shadow: 0 4px 8px 0 rgba(59, 59, 59, 0.2), 0 6px 20px 0 rgba(49, 49, 49, 0.19);
+    border-radius: 5px;
+}
+
+.color-selector{
+    
 }

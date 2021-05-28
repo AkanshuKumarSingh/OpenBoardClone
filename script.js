@@ -2,6 +2,14 @@ let board = document.querySelector(".board");
 let tool = board.getContext("2d");
 let topIcons = document.querySelector(".top_icons");
 let boardObj = document.querySelector(".board").getBoundingClientRect();
+let penBtn = document.querySelector(".pen");
+let eraserBtn = document.querySelector(".eraser");
+let notesBtn = document.querySelector(".notes");
+let uploadBtn = document.querySelector(".upload");
+let downloadBtn = document.querySelector(".download");
+let zoomInBtn = document.querySelector(".zoomin");
+let zoomOutBtn = document.querySelector(".zoomout");
+let isPenSelected = false;
 
 let isMouseDown = false;
 let isVisible = true;
@@ -45,7 +53,22 @@ function myFunction(clicked) {
     }
 }
 
-console.log(topObj);
 function getY(y) {
     return y-boardObj.top;
 }
+
+penBtn.addEventListener("click",function (e) {
+    if(!isPenSelected){
+        penBtn.classList.add("active-btn");
+        let ip = document.createElement("input");
+        ip.type = "color";
+        document.querySelector("body").append(ip);
+        ip.style.marginLeft = e.clientX+"px";
+        ip.style.marginTop = e.clientY+"px";
+        // console.log(ip.style.marginLeft + " " + ip.style.marginTop);
+        ip.click();
+    }else{
+        penBtn.classList.remove("active-btn");
+    }
+    isPenSelected = !isPenSelected;
+})
