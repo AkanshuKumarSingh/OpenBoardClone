@@ -43,7 +43,6 @@ board.addEventListener("mousedown", function (e) {
     } else {
         tool.strokeStyle = penColor;
         tool.beginPath();
-        tool.moveTo(e.clientX, e.clientY);
     }
 })
 
@@ -62,11 +61,8 @@ board.addEventListener("mousemove", function (e) {
 board.addEventListener("mouseup", function (e) {
     if (isEraserSelected) {
         tool.globalCompositeOperation = 'source-over';
-    } else {
-        tool.lineTo(e.clientX, e.clientY);
-        tool.stroke();
     }
-    isMouseDown = false;
+     isMouseDown = false;
 })
 
 // for toggling the menu bar
@@ -119,3 +115,65 @@ eraserBtn.addEventListener("click", function () {
 })
 
 
+// Zoom in button
+zoomInBtn.addEventListener("click", function (e) {
+      
+      // times zoom we want in each step
+      zoomTime = 1.04;
+
+      // create a copy of your canvas
+      let boardClone = copyOfBoard(board);
+
+      // clear to make it bigger else many ines will appear
+      tool.clearRect(0, 0, board.width, board.height);
+      
+      // Zoom times both x and y
+      tool.scale(zoomTime, zoomTime);
+      
+      // Center-Zoom
+      let x = (board.width / zoomTime - board.width) / 2;
+      let y = (board.height / zoomTime - board.height) / 2;
+      
+      // Draw Again(Paste)
+      tool.drawImage(boardClone, x, y);
+      // Reset Zoom i.e, scale()
+      tool.setTransform(1, 0, 0, 1, 0, 0);
+
+  })
+
+
+// Zoom out button
+console.log(zoomOutBtn);
+zoomOutBtn.addEventListener("click", function (e) {
+      
+    // times zoom we want in each step
+    zoomTime = 0.97;
+
+    // create a copy of your canvas
+    let boardClone = copyOfBoard(board);
+
+    // clear to make it bigger else many ines will appear
+    tool.clearRect(0, 0, board.width, board.height);
+    
+    // Zoom times both x and y
+    tool.scale(zoomTime, zoomTime);
+    
+    // Center-Zoom
+    let x = (board.width / zoomTime - board.width) / 2;
+    let y = (board.height / zoomTime - board.height) / 2;
+    
+    // Draw Again(Paste)
+    tool.drawImage(boardClone, x, y);
+    // Reset Zoom i.e, scale()
+    tool.setTransform(1, 0, 0, 1, 0, 0);
+
+})
+
+  function copyOfBoard(board) {
+    let boardClone = document.createElement("canvas");
+    boardClone.width = window.innerWidth;
+    boardClone.height = window.innerHeight;
+    let newTool = boardClone.getContext("2d");
+    newTool.drawImage(board, 0, 0);
+    return boardClone;
+  }
