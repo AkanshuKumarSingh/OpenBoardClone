@@ -10,6 +10,7 @@ let downloadBtn = document.querySelector(".download");
 let zoomInBtn = document.querySelector(".zoomin");
 let zoomOutBtn = document.querySelector(".zoomout");
 let penColorBtn = document.querySelector(".penColor");
+let open = document.querySelector("#file-input");
 
 let isPenSelected = false;
 let isEraserSelected = false;
@@ -62,7 +63,7 @@ board.addEventListener("mouseup", function (e) {
     if (isEraserSelected) {
         tool.globalCompositeOperation = 'source-over';
     }
-     isMouseDown = false;
+    isMouseDown = false;
 })
 
 // for toggling the menu bar
@@ -117,35 +118,35 @@ eraserBtn.addEventListener("click", function () {
 
 // Zoom in button
 zoomInBtn.addEventListener("click", function (e) {
-      
-      // times zoom we want in each step
-      zoomTime = 1.04;
 
-      // create a copy of your canvas
-      let boardClone = copyOfBoard(board);
+    // times zoom we want in each step
+    zoomTime = 1.04;
 
-      // clear to make it bigger else many ines will appear
-      tool.clearRect(0, 0, board.width, board.height);
-      
-      // Zoom times both x and y
-      tool.scale(zoomTime, zoomTime);
-      
-      // Center-Zoom
-      let x = (board.width / zoomTime - board.width) / 2;
-      let y = (board.height / zoomTime - board.height) / 2;
-      
-      // Draw Again(Paste)
-      tool.drawImage(boardClone, x, y);
-      // Reset Zoom i.e, scale()
-      tool.setTransform(1, 0, 0, 1, 0, 0);
+    // create a copy of your canvas
+    let boardClone = copyOfBoard(board);
 
-  })
+    // clear to make it bigger else many ines will appear
+    tool.clearRect(0, 0, board.width, board.height);
+
+    // Zoom times both x and y
+    tool.scale(zoomTime, zoomTime);
+
+    // Center-Zoom
+    let x = (board.width / zoomTime - board.width) / 2;
+    let y = (board.height / zoomTime - board.height) / 2;
+
+    // Draw Again(Paste)
+    tool.drawImage(boardClone, x, y);
+    // Reset Zoom i.e, scale()
+    tool.setTransform(1, 0, 0, 1, 0, 0);
+
+})
 
 
 // Zoom out button
 console.log(zoomOutBtn);
 zoomOutBtn.addEventListener("click", function (e) {
-      
+
     // times zoom we want in each step
     zoomTime = 0.97;
 
@@ -154,14 +155,14 @@ zoomOutBtn.addEventListener("click", function (e) {
 
     // clear to make it bigger else many ines will appear
     tool.clearRect(0, 0, board.width, board.height);
-    
+
     // Zoom times both x and y
     tool.scale(zoomTime, zoomTime);
-    
+
     // Center-Zoom
     let x = (board.width / zoomTime - board.width) / 2;
     let y = (board.height / zoomTime - board.height) / 2;
-    
+
     // Draw Again(Paste)
     tool.drawImage(boardClone, x, y);
     // Reset Zoom i.e, scale()
@@ -169,11 +170,42 @@ zoomOutBtn.addEventListener("click", function (e) {
 
 })
 
-  function copyOfBoard(board) {
+// download
+downloadBtn.addEventListener("click", function () {
+    let boardCopy = copyOfBoard(board);  // Copy Canvas
+    let url = boardCopy.toDataURL();
+    let a = document.createElement("a");
+    a.href = url;
+    a.download = "pic.png";
+    a.click();
+    a.remove();
+})
+
+// upload
+open.addEventListener("change", handleImage)
+
+ function handleImage(e) {
+    var reader = new FileReader();
+    reader.readAsDataURL(open.files[0]);
+    reader.onload = function (event) {
+        var imgNew = new Image();
+        imgNew.src = event.target.result;
+        imgNew.onload = function () {
+            console.log(imgNew);
+            board.width = imgNew.width;
+            board.height = imgNew.height;
+            tool.drawImage(imgNew,0,0);
+            tool.lineWidth = 10;
+        }
+    }
+    
+}
+
+function copyOfBoard(board) {
     let boardClone = document.createElement("canvas");
     boardClone.width = window.innerWidth;
     boardClone.height = window.innerHeight;
     let newTool = boardClone.getContext("2d");
     newTool.drawImage(board, 0, 0);
     return boardClone;
-  }
+}
