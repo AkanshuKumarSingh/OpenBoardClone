@@ -40,7 +40,6 @@ board.addEventListener("mousedown", function (e) {
     if (isEraserSelected) {
         tool.globalCompositeOperation = 'destination-out';
         tool.beginPath();
-        tool.moveTo(e.clientX, e.clientY);
     } else {
         tool.strokeStyle = penColor;
         tool.beginPath();
@@ -62,6 +61,7 @@ board.addEventListener("mousemove", function (e) {
 board.addEventListener("mouseup", function (e) {
     if (isEraserSelected) {
         tool.globalCompositeOperation = 'source-over';
+        isEraserSelected = false;
     }
     isMouseDown = false;
 })
